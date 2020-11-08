@@ -28,3 +28,41 @@
 8 10 12
 14 16 18
 """
+
+
+class Matrix:
+
+    def __init__(self, matrix):
+        self.matrix = matrix
+
+    def __str__(self):
+        return "\n".join([" ".join(map(lambda a: str(a), item)) for item in self.matrix])
+    #
+    def __add__(self, other):
+        new_list = []
+        for i in range(0, len(self.matrix)):
+            new_list.append([self.matrix[i][j] + other.matrix[i][j] for j in range(0, len(self.matrix[i]))])
+        return Matrix(new_list)
+
+
+list_a = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+list_b = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+matrix_a = Matrix(list_a)
+matrix_b = Matrix(list_b)
+
+print(f'Вывод матрицы А:')
+print(matrix_a)
+print()
+
+print(f'Вывод матрицы B:')
+print(matrix_b)
+print()
+
+matrix_c = matrix_a + matrix_b
+print(f'Вывод матрицы C:')
+print(matrix_c)
+
+
+
+

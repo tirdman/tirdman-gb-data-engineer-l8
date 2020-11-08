@@ -99,3 +99,71 @@ print(cell2.make_order(10))
 *****\n *****\n *****\n *****\n *****\n *****\n
 **********\n **********\n *****
 """
+
+
+class Cell:
+
+    def __init__(self, quantity):
+        self.quantity = quantity
+
+    def __add__(self, other):
+        print(f'Сумма клеток = ({self.quantity + other.quantity})')
+
+    def __sub__(self, other):
+        diff = self.quantity - other.quantity
+        print(
+            f'{f"Разность клеток = ({diff})" if diff > 0 else "Разность отрицательна, поэтому операция не выполняется"}')
+
+    def __mul__(self, other):
+        print(f'Умножение клеток = ({self.quantity * other.quantity})')
+
+    def __truediv__(self, other):
+        print(f'Деление клеток = ({int(self.quantity / other.quantity)})')
+
+    def make_order(self, in_row):
+        count_iter = 1
+        while True:
+            if (self.quantity // (in_row * count_iter)) > 0:
+                print(f"{'*' * in_row}")
+                count_iter += 1
+            else:
+                print(f"{'*' * (self.quantity % in_row)}")
+                break
+
+
+print("Создаем объекты клеток")
+cell1 = Cell(30)
+cell2 = Cell(25)
+
+cell3 = Cell(10)
+cell4 = Cell(15)
+
+print()
+
+# Убрал из операций print, так как в выводе присутствует None
+# В реальной программе в методах не делал бы операцию print, а возвращал значение
+
+print("Складываем")
+cell1 + cell2
+
+print()
+
+print("Вычитаем")
+cell2 - cell1
+cell4 - cell3
+
+print()
+
+print("Умножаем")
+cell2 * cell1
+
+print()
+
+print("Делим")
+cell1 / cell2
+
+print()
+
+print("Организация ячеек по рядам")
+cell1.make_order(5)
+cell2.make_order(10)

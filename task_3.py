@@ -103,22 +103,38 @@ print(cell2.make_order(10))
 
 class Cell:
 
-    def __init__(self, quantity):
+    def __init__(self, quantity, source=None):
         self.quantity = quantity
+        self.__source = source
 
     def __add__(self, other):
-        print(f'Сумма клеток = ({self.quantity + other.quantity})')
+        return Cell(self.quantity + other.quantity, 'add')
 
     def __sub__(self, other):
         diff = self.quantity - other.quantity
-        print(
-            f'{f"Разность клеток = ({diff})" if diff > 0 else "Разность отрицательна, поэтому операция не выполняется"}')
+        if diff > 0:
+            return Cell(self.quantity - other.quantity, 'sub')
+        return 'Разность отрицательна, поэтому операция не выполняется'
 
     def __mul__(self, other):
-        print(f'Умножение клеток = ({self.quantity * other.quantity})')
+        return Cell(self.quantity * other.quantity, 'mul')
 
     def __truediv__(self, other):
-        print(f'Деление клеток = ({int(self.quantity / other.quantity)})')
+        return Cell(int(self.quantity / other.quantity), 'div')
+
+    def __str__(self):
+        if not self.__source:
+            return f'Новая клетка = ({str(self.quantity)})'
+        elif self.__source == 'div':
+            return f'Деление клеток = ({str(self.quantity)})'
+        elif self.__source == 'mul':
+            return f'Умножение клеток = ({str(self.quantity)})'
+        elif self.__source == 'sub':
+            return f'Разность клеток = ({str(self.quantity)})'
+        elif self.__source == 'add':
+            return f'Сумма клеток = ({str(self.quantity)})'
+        else:
+            return 'Не определен источник возникновения клетки'
 
     def make_order(self, in_row):
         count_iter = 1
@@ -144,23 +160,24 @@ print()
 # В реальной программе в методах не делал бы операцию print, а возвращал значение
 
 print("Складываем")
-cell1 + cell2
+print(cell1 + cell2)
 
 print()
 
 print("Вычитаем")
-cell2 - cell1
-cell4 - cell3
+print(cell2 - cell1)
+print(cell4 - cell3)
 
 print()
 
 print("Умножаем")
-cell2 * cell1
+print(cell1 * cell2)
 
 print()
 
 print("Делим")
-cell1 / cell2
+print(cell1 / cell2)
+
 
 print()
 

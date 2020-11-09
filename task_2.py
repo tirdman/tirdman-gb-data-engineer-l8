@@ -24,8 +24,6 @@
 Общий расход ткани = 21.57
 """
 
-from functools import reduce
-
 from abc import ABC, abstractmethod
 
 
